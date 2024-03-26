@@ -1,4 +1,4 @@
 package Packageapp.repositories;
 
-public interface ParcRepository {
+public interface AgentRepository {
 }
