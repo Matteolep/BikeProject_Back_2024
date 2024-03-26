@@ -1,6 +1,6 @@
-package fr.cszw.td_devwebavance.repositories;
+package Packageapp.repositories;
 
-import fr.cszw.td_devwebavance.models.Light;
+import Packageapp.models.Light;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

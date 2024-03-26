@@ -1,4 +1,4 @@
-package fr.cszw.td_devwebavance.exceptions;
+package Packageapp.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

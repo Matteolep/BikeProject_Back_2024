@@ -1,4 +1,4 @@
-package fr.cszw.td_devwebavance.models;
+package Packageapp.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

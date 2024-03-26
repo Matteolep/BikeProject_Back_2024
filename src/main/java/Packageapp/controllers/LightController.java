@@ -1,9 +1,9 @@
-package fr.cszw.td_devwebavance.controllers;
+package Packageapp.controllers;
 
-import fr.cszw.td_devwebavance.exceptions.DBException;
-import fr.cszw.td_devwebavance.exceptions.NotFoundException;
-import fr.cszw.td_devwebavance.models.Light;
-import fr.cszw.td_devwebavance.services.LightService;
+import Packageapp.exceptions.DBException;
+import Packageapp.exceptions.NotFoundException;
+import Packageapp.models.Light;
+import Packageapp.services.LightService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

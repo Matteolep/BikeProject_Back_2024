@@ -1,4 +1,4 @@
-package fr.cszw.td_devwebavance.controllers;
+package Packageapp.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

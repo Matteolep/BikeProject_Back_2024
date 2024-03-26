@@ -1,9 +1,9 @@
-package fr.cszw.td_devwebavance.services;
+package Packageapp.services;
 
-import fr.cszw.td_devwebavance.exceptions.DBException;
-import fr.cszw.td_devwebavance.exceptions.NotFoundException;
-import fr.cszw.td_devwebavance.models.Light;
-import fr.cszw.td_devwebavance.repositories.LightRepository;
+import Packageapp.exceptions.NotFoundException;
+import Packageapp.repositories.LightRepository;
+import Packageapp.exceptions.DBException;
+import Packageapp.models.Light;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
