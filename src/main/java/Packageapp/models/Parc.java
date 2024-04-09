@@ -1,15 +1,12 @@
 package Packageapp.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "Parc")
+@Entity(name = "park")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -20,8 +17,18 @@ public class Parc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
-    private Integer NbTotal;
-    private Integer NbDispo;
+    @Column(name = "nbtot")
+    private Integer nbtot;
+
+    @Column(name = "nbdispo")
+    private Integer nbdispo;
+
+    @ManyToOne
+    @JoinColumn(name = "geoloc_ID", referencedColumnName = "ID")
+    private Geoloc geoloc_ID;
+
+    @Column(name = "statut")
+    private Boolean statut;
 
 
 
