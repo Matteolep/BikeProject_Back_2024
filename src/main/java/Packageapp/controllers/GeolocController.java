@@ -1,20 +1,14 @@
 package Packageapp.controllers;
 
-import Packageapp.exceptions.DBException;
-import Packageapp.exceptions.NotFoundException;
-import Packageapp.models.Agent;
-import Packageapp.services.AgentService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("Agents")
-public class AgentController {
+@RequestMapping("/Geolocs")
+public class GeolocController {
 
     @GetMapping()
     public ResponseEntity<String> helloWorld() {
@@ -26,6 +20,4 @@ public class AgentController {
 
         return null;
     }
-
-
 }

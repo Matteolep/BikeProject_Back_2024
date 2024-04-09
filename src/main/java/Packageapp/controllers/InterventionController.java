@@ -21,7 +21,7 @@ public class InterventionController {
     }
 
 
-    // Update OU Création d'une lampe
+    // Update OU Création d'une intervention
     @GetMapping("/2")
     public String helloWorld2() {
 

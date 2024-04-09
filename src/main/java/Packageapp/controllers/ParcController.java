@@ -11,5 +11,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@RestController
+@RequestMapping("/Parcs")
 public class ParcController {
+
+    @GetMapping()
+    public ResponseEntity<String> helloWorld() {
+        return new ResponseEntity<>("Hello-World !", HttpStatus.NOT_FOUND);
+    }
+
+    // Update OU Création d'un parc
+    @GetMapping("/2")
+    public String helloWorld2() {
+
+        return null;
+    }
+
 }
