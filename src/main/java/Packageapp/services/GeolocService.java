@@ -1,7 +1,6 @@
 package Packageapp.services;
 
 import Packageapp.exceptions.NotFoundException;
-import Packageapp.models.Light;
 import Packageapp.repositories.GeolocRepository;
 import Packageapp.exceptions.DBException;
 import Packageapp.models.Geoloc;

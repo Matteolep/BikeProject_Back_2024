@@ -13,18 +13,52 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Parcs")
+@RequiredArgsConstructor
+@Slf4j
 public class ParcController {
 
+    private final ParcService parcService;
+
     @GetMapping()
-    public ResponseEntity<String> helloWorld() {
-        return new ResponseEntity<>("Hello-World !", HttpStatus.NOT_FOUND);
+    public ResponseEntity<List<Parc>> getParcs() {
+        return new ResponseEntity<>(this.parcService.getAllParcs(), HttpStatus.OK);
+    }
+    // Update OU Création d'un parc
+    @PostMapping
+    public ResponseEntity<Parc> postParc(@RequestBody Parc parcSent) {
+        try {
+            log.info("Creating intervention ...");
+            // La condition ternaire permet de changer le code de retour en fonction du "mode" voulu
+            return parcSent.getID() == null ?
+                    new ResponseEntity<>(this.parcService.updateParc(parcSent), HttpStatus.CREATED) :
+                    new ResponseEntity<>(this.parcService.updateParc(parcSent), HttpStatus.ACCEPTED);
+        } catch (DBException e) {
+            // Erreur 500
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (NotFoundException e) {
+            // Erreur 404 lorsque l'id de l'objet qu'on veut modifier n'existe pas en base
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    // Update OU Création d'un parc
-    @GetMapping("/2")
-    public String helloWorld2() {
-
-        return null;
+    @DeleteMapping("{ID}")
+    public ResponseEntity<Void> deleteParc(@PathVariable Long ID) {
+        // Check if id is null
+        if (ID == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        try {
+            this.parcService.deleteParc(ID);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (DBException e) {
+            // Erreur 500
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (NotFoundException e) {
+            // Erreur 404 lorsque l'id de l'objet qu'on veut modifier n'existe pas en base
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

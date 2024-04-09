@@ -3,7 +3,6 @@ package Packageapp.controllers;
 import Packageapp.exceptions.DBException;
 import Packageapp.exceptions.NotFoundException;
 import Packageapp.models.Agent;
-import Packageapp.models.Light;
 import Packageapp.services.AgentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
