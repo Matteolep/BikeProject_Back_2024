@@ -18,15 +18,28 @@ import java.util.List;
 public class GeolocController {
 
     private final GeolocService geolocService;
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<List<Geoloc>> getGeolocs() {
         return new ResponseEntity<>(this.geolocService.getAllGeolocs(), HttpStatus.OK);
 
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/Nom")
+    public String getNomById(@PathVariable Long id) {
+        try {
+            return geolocService.getNomById(id);
+        } catch (NotFoundException e) {
+            throw new RuntimeException("Geoloc introuvable avec l'ID : " + id);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Geoloc> postGeoloc(@RequestBody Geoloc geolocSent) {
         try {
-            log.info("Creating light ...");
+            log.info("Creating Geolocalisation ...");
             // La condition ternaire permet de changer le code de retour en fonction du "mode" voulu
             return geolocSent.getID() == null ?
                     new ResponseEntity<>(this.geolocService.updategeoloc(geolocSent), HttpStatus.CREATED) :
@@ -43,7 +56,7 @@ public class GeolocController {
     }
 
     @DeleteMapping("{ID}")
-    public ResponseEntity<Void> deleteLight(@PathVariable Long ID) {
+    public ResponseEntity<Void> deleteGeoloc(@PathVariable Long ID) {
         // Check if id is null
         if (ID == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         try {

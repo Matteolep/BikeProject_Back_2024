@@ -19,6 +19,9 @@ import java.util.List;
 public class AgentController {
 
     private final AgentService agentService;
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public ResponseEntity<List<Agent>> getAgents() {
         return new ResponseEntity<>(this.agentService.getAllAgents(), HttpStatus.OK);
@@ -59,6 +62,17 @@ public class AgentController {
             // Erreur 404 lorsque l'id de l'objet qu'on veut modifier n'existe pas en base
             log.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/Prenom")
+    public String getPrenomAgentById(@PathVariable Long id) {
+        try {
+            return agentService.getPrenomById(id);
+        } catch (NotFoundException e) {
+            throw new RuntimeException("Agent introuvable avec l'ID : " + id);
         }
     }
 

@@ -18,16 +18,20 @@ import lombok.Setter;
         })
 public class Geoloc {
 
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
+
+    @Setter
     @Column(name = "Longitude")
-    private Integer Longitude;
+    private Double Longitude;
 
+    @Setter
     @Column(name = "Latitude")
-    private Integer Latitude;
+    private Double Latitude;
 
-    @Column(name = "Ville")
-    private String  Ville;
+    @Column(name = "nom")
+    private String  Nom;
 }
