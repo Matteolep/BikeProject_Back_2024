@@ -2,7 +2,9 @@ package Packageapp.controllers;
 
 import Packageapp.exceptions.DBException;
 import Packageapp.exceptions.NotFoundException;
+import Packageapp.models.Geoloc;
 import Packageapp.models.Parc;
+import Packageapp.services.GeolocService;
 import Packageapp.services.ParcService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +20,10 @@ import java.util.List;
 public class ParcController {
 
     private final ParcService parcService;
+    private final GeolocService geolocService;
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public ResponseEntity<List<Parc>> getParcs() {
         return new ResponseEntity<>(this.parcService.getAllParcs(), HttpStatus.OK);
@@ -27,11 +32,13 @@ public class ParcController {
     @PostMapping
     public ResponseEntity<Parc> postParc(@RequestBody Parc parcSent) {
         try {
-            log.info("Creating intervention ...");
-            // La condition ternaire permet de changer le code de retour en fonction du "mode" voulu
+            log.info("Creating parc ...");
             return parcSent.getID() == null ?
-                    new ResponseEntity<>(this.parcService.updateParc(parcSent), HttpStatus.CREATED) :
-                    new ResponseEntity<>(this.parcService.updateParc(parcSent), HttpStatus.ACCEPTED);
+                    new ResponseEntity<>(this.parcService.updateParc(parcSent),HttpStatus.CREATED):
+                    new ResponseEntity<>(this.parcService.updateParc(parcSent),HttpStatus.ACCEPTED);
+
+
+
         } catch (DBException e) {
             // Erreur 500
             log.error(e.getMessage());

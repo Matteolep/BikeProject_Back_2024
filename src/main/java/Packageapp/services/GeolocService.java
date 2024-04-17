@@ -1,6 +1,7 @@
 package Packageapp.services;
 
 import Packageapp.exceptions.NotFoundException;
+import Packageapp.models.Parc;
 import Packageapp.repositories.GeolocRepository;
 import Packageapp.exceptions.DBException;
 import Packageapp.models.Geoloc;
@@ -18,6 +19,10 @@ public class GeolocService {
         return this.geolocRepository.findAll();
     }
 
+    public String getNomById(Long id) throws NotFoundException {
+        Geoloc geoloc = geolocRepository.findById(id).orElseThrow(() -> new NotFoundException("Geoloc not found"));
+        return geoloc.getNom();
+    }
 
     public Geoloc updategeoloc(Geoloc geoloc) throws DBException,NotFoundException {
         Geoloc existing;
@@ -31,13 +36,17 @@ public class GeolocService {
 
         existing.setLongitude(geoloc.getLongitude());
         existing.setLatitude(geoloc.getLatitude());
-        existing.setVille(geoloc.getVille());
+        existing.setNom(geoloc.getNom());
 
         try {
             return this.geolocRepository.save(existing);
         }catch (Exception e){
             throw new DBException("Could not Create geoloc");
         }
+    }
+
+    public Geoloc getGeolocById(Long id) throws NotFoundException {
+        return geolocRepository.findById(id).orElseThrow(() -> new NotFoundException("Parc not found"));
     }
 
     public void deleteGeoloc(Long id) throws NotFoundException, DBException {

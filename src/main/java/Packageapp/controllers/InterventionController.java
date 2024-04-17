@@ -2,8 +2,12 @@ package Packageapp.controllers;
 
 import Packageapp.exceptions.DBException;
 import Packageapp.exceptions.NotFoundException;
+import Packageapp.models.Agent;
 import Packageapp.models.Intervention;
+import Packageapp.models.Parc;
+import Packageapp.services.AgentService;
 import Packageapp.services.InterventionService;
+import Packageapp.services.ParcService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,6 +22,10 @@ import java.util.List;
 public class InterventionController {
 
     private final InterventionService interventionService;
+    private final ParcService parcService;
+    private final AgentService agentService;
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public ResponseEntity<List<Intervention>> getInterventions() {
         return new ResponseEntity<>(this.interventionService.getAllInterventions(), HttpStatus.OK);
@@ -26,13 +34,26 @@ public class InterventionController {
 
     // Update OU Création d'une intervention
     @PostMapping
-    public ResponseEntity<Intervention> postIntervention(@RequestBody Intervention interventionSent) {
+    public ResponseEntity<Intervention> postIntervention(@RequestParam Long agentId, @RequestParam Long parcId) {
         try {
             log.info("Creating intervention ...");
-            // La condition ternaire permet de changer le code de retour en fonction du "mode" voulu
-            return interventionSent.getID() == null ?
-                    new ResponseEntity<>(this.interventionService.updateIntervention(interventionSent), HttpStatus.CREATED) :
-                    new ResponseEntity<>(this.interventionService.updateIntervention(interventionSent), HttpStatus.ACCEPTED);
+            Parc parc = parcService.getParcById(parcId);
+            Agent agent = agentService.getAgentById(agentId);
+            Intervention intervention = new Intervention();
+            intervention.setAgent_ID(agent.getID());
+            intervention.setParc_ID(parc.getID());
+            if (parc.getStatut() && !agent.getIsBusy()){
+                intervention.setParc_ID(parc.getID());
+                intervention.setAgent_ID(agent.getID());
+                interventionService.updateIntervention(intervention);
+                return new ResponseEntity<>(intervention, HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+
+
         } catch (DBException e) {
             // Erreur 500
             log.error(e.getMessage());
@@ -43,6 +64,8 @@ public class InterventionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
 
     @DeleteMapping("{ID}")
     public ResponseEntity<Void> deleteIntervention(@PathVariable Long ID) {

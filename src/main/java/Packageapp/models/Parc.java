@@ -23,9 +23,49 @@ public class Parc {
     @Column(name = "nbdispo")
     private Integer nbdispo;
 
-    @ManyToOne
+
     @JoinColumn(name = "geoloc_ID", referencedColumnName = "ID")
-    private Geoloc geoloc_ID;
+    private Long geoloc_ID;
+
+    public Long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public Integer getNbtot() {
+        return nbtot;
+    }
+
+    public void setNbtot(Integer nbtot) {
+        this.nbtot = nbtot;
+    }
+
+    public Integer getNbdispo() {
+        return nbdispo;
+    }
+
+    public void setNbdispo(Integer nbdispo) {
+        this.nbdispo = nbdispo;
+    }
+
+    public Long getGeoloc_ID() {
+        return geoloc_ID;
+    }
+
+    public void setGeoloc_ID(Long geoloc_ID) {
+        this.geoloc_ID = geoloc_ID;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
+    }
 
     @Column(name = "statut")
     private Boolean statut;

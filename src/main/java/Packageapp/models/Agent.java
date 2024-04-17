@@ -19,7 +19,7 @@ public class Agent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
-    @Column(name = "Disponibilité")
+    @Column(name = "is_busy")
     private Boolean IsBusy;
 
     @Column(name = "Nom")
